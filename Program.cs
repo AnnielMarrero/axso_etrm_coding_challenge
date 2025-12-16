@@ -166,6 +166,8 @@ class Program
     {
         // 3) defaults
         string defaultFolder = Path.Combine(Directory.GetCurrentDirectory(), "reports");
+        Directory.CreateDirectory(defaultFolder);
+
         int defaultInterval = 15;
 
         // 1) Try command-line args

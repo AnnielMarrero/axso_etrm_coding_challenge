@@ -1,20 +1,13 @@
 ﻿using Axpo;
-using Microsoft.Build.Logging;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Serilog;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 
 class Program
 {
@@ -145,11 +138,13 @@ class Program
     /// <param name="logger"></param>
     /// <returns></returns>
     static async Task ExtractCsvAsync( (string Period, double Volume) [] data, string outputFolder, ILogger<Program> logger) {
-        var rows = new List<string>();
-        rows.Add("Local Time,Volume"); // header
-        foreach (var d in data)
+        var rows = new List<string>
         {
-            rows.Add($"{d.Period},{Math.Round(d.Volume)}");
+            "Local Time,Volume" // header
+        };
+        foreach (var (Period, Volume) in data)
+        {
+            rows.Add($"{Period},{Math.Round(Volume)}");
         }
         DateTime extractTimeLocal = DateTime.Now;
         // Filename: PowerPosition_YYYYMMDD_HHMM.csv using extract local time

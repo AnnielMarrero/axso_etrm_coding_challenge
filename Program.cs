@@ -98,6 +98,10 @@ class Program
         }
         
         var currentDate = DateTime.Now;
+        if (currentDate.TimeOfDay >= new TimeSpan(23, 0, 0))
+        {
+            currentDate = currentDate.AddDays(1);
+        }
         // ensure retries on failure
         while (true) {
             try
